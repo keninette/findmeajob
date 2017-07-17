@@ -1,4 +1,5 @@
-<?php include('controller/index.controller.php'); ?>
+<?php 
+    require_once 'controller/index.controller.php'; ?>
 
 <!DOCTYPE>
 <head>
@@ -20,8 +21,15 @@
                 </ul>
             </nav>
             <section class="col-xs-10">
-                <!--include custom -->
-                <?php include('view/' .$page .'.inc.php'); ?>
+                <!--include custom controller and view -->
+                <?php 
+                    // model may not exist, so we try to include it, we do not require it
+                    include_once 'model/motivation.model.php';
+                    // require controller
+                    require_once 'controller/' .$page .'.controller.php';
+                    // require page content
+                    require_once 'view/' .$page .'.inc.php'; 
+                ?>
             </section>
         </div>
     </div>
