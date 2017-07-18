@@ -1,5 +1,7 @@
 <?php 
-    require_once 'controller/index.controller.php'; ?>
+    require_once 'controller/index.controller.php'; 
+    require_once 'config/constant.php';
+?>
 
 <!DOCTYPE>
 <head>
