@@ -1,6 +1,9 @@
 <?php 
     require_once 'controller/index.controller.php'; 
     require_once 'config/constant.php';
+    require_once 'model/error.model.php';
+    require_once 'model/pdo_model.php';
+    require_once 'function/config.function.php';
 ?>
 
 <!DOCTYPE>
@@ -25,12 +28,11 @@
             <section class="col-xs-10">
                 <!--include custom controller and view -->
                 <?php 
-                    // model may not exist, so we try to include it, we do not require it
-                    include_once 'model/motivation.model.php';
-                    // require controller
-                    require_once 'controller/' .$page .'.controller.php';
-                    // require page content
-                    require_once 'view/' .$page .'.inc.php'; 
+                    // model, function or controller files may not exist, so we try to include them, we do not require them
+                    customRequire('model' .$page .'.model.php');
+                    customRequire('function/' .$page .'.function.php');
+                    customRequire('controller/' .$page .'.controller.php');
+                    customRequire('view/' .$page .'.inc.php'); 
                 ?>
             </section>
         </div>
