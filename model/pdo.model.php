@@ -5,7 +5,7 @@
  * @param PDOStatement $pdo : PDOStatement used for queries
  * @param bool $connect : true -> connect to database, false -> disconnect from database
  */
-function pdoDbConnection(PDOStatement $pdo, bool $connect = true) :NULL {
+function pdoDbConnection(PDOStatement $pdo, bool $connect = true) {
     
     try {
         // Connect to database
@@ -68,6 +68,9 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
     
     try {
         
+        // Connect to database
+        pdoDbConnection($pdo);
+        
         // Prepare statement with query and params given in arguments
         $st = $pdo->prepare($query);
         
@@ -77,6 +80,10 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         
         // execute prepared statement & return data
         $data = $st->execute();
+        
+        // Disconnect from database
+        pdoDbConnection($pdo, false);
+        
         return $data;
         
     } catch (PDOException $e) {

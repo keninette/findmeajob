@@ -5,7 +5,7 @@
  * @param String $code : code erreur 
  * @param String $msg : contenu du message
  */
-function writeError(String $code, String $msg) :NULL {
+function writeError(String $code, String $msg) {
     
     // Prepare
     $query = '

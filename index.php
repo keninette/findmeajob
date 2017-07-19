@@ -1,8 +1,9 @@
 <?php 
+    ini_set('display_errors', 1);
     require_once 'controller/index.controller.php'; 
     require_once 'config/constant.php';
     require_once 'model/error.model.php';
-    require_once 'model/pdo_model.php';
+    require_once 'model/pdo.model.php';
     require_once 'function/config.function.php';
 ?>
 
@@ -29,10 +30,9 @@
                 <!--include custom controller and view -->
                 <?php 
                     // model, function or controller files may not exist, so we try to include them, we do not require them
-                    customRequire('model' .$page .'.model.php');
+                    customRequire('model/' .$page .'.model.php');
                     customRequire('function/' .$page .'.function.php');
                     customRequire('controller/' .$page .'.controller.php');
-                    customRequire('view/' .$page .'.inc.php'); 
                 ?>
             </section>
         </div>

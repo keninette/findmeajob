@@ -1,5 +1,4 @@
 <form id="form-motivation" action="" method="POST">
-    
     <fieldset class="row">
         <label for="form-motivation[subject]" class="col-xs-12">Objet</label>
         <input type="text" id="form-motivation[subject]" name="form-motivation[subject]" class="col-xs-12" value="<?php echo $motivation['subject']; ?>" />
