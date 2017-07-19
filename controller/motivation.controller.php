@@ -26,6 +26,3 @@ if (isset($_POST['form-motivation'])) {
         $motivation['content']    = $jsonData['content'];
     }
 }
-
-// Display view
-require_once 'view/motivation.inc.php';

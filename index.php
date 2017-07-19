@@ -1,12 +1,17 @@
 <?php 
     ini_set('display_errors', 1);
-    require_once 'controller/index.controller.php'; 
+    
+    // require all mandatory components
     require_once 'config/constant.php';
     require_once 'model/error.model.php';
     require_once 'model/pdo.model.php';
     require_once 'function/config.function.php';
+    
+    // require index controller
+    require_once 'controller/index.controller.php'; 
 ?>
 
+<!-- display page -->
 <!DOCTYPE>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -22,24 +27,17 @@
                 <i class="fa fa-black-tie fa-5x green" id="logo" aria-hidden="true"></i>
                 <h1>Find me a job !</h1>
                 <ul class="nav nav-sidebar navbar">
-                    <li class="active">plop</li>
+                    <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
                     <li>plup</li>
                 </ul>
             </nav>
             <section class="col-xs-10">
-                <!--include custom controller and view -->
-                <?php 
-                    // model, function or controller files may not exist, so we try to include them, we do not require them
-                    customRequire('model/' .$page .'.model.php');
-                    customRequire('function/' .$page .'.function.php');
-                    customRequire('controller/' .$page .'.controller.php');
-                ?>
+                <!--include custom view -->
+                <?php require_once 'view/' .$page .'.inc.php'; ?>
             </section>
         </div>
     </div>
-    
     <!-- scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/584f23e963.js"></script>
-
 </body>

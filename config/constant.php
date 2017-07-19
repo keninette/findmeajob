@@ -1,5 +1,8 @@
 <?php
 
+// General
+define('HOME_PAGE', 'motivation');
+
 // JSON
 define('JSON_PATH_MOTIV', 'public/json/motivation.json');
 
