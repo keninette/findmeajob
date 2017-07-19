@@ -17,6 +17,6 @@ if (isset($_GET['page'])) {
 }
 
 // require page functions, model (if they exist) and controller (mandatory)
-customRequire('function/' .$page .'.function.php');
-customRequire('model/' .$page .'.model.php');
-require_once 'controller/' .$page .'.controller.php';
+customRequire($page, REQUIRE_FUNCTION_FILE);
+customRequire($page, REQUIRE_MODEL_FILE);
+customRequire($page, REQUIRE_VIEW_FILE, true);

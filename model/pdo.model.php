@@ -12,7 +12,7 @@ function pdoDbConnection(PDOStatement $pdo, bool $connect = true) {
         if ($connect) {
 
             // Get db info
-            require_once 'config/db_config.php';
+            require_once 'config/db.config.php';
              // Connect to database
             $pdo = new PDO($dsn, $user, $pwd);
 

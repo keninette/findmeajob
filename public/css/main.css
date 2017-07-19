@@ -31,7 +31,17 @@ and open the template in the editor.
 nav {
   text-align: center;
 }
+body {
+  font-size: 1.5em;
+}
+em {
+  color: #15E4BB;
+  font-weight: bold;
+}
 h1 {
   font-size: 1.5em;
+}
+.small-info {
+  font-style: italic;
 }
 /*# sourceMappingURL=main.css.map */

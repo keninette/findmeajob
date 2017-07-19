@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- custom css -->
     <link rel="stylesheet" href="public/css/main.css" />
+    <!-- custom page css file -->
+    <?php customRequire($page, REQUIRE_CSS_FILE); ?>
 </head>
 <body>
     <div class="container-fluid">
@@ -28,16 +30,18 @@
                 <h1>Find me a job !</h1>
                 <ul class="nav nav-sidebar navbar">
                     <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
-                    <li>plup</li>
+                    <li><a href="index.php?page=application">Envoyer ma candidature</a></li>
                 </ul>
             </nav>
             <section class="col-xs-10">
                 <!--include custom view -->
-                <?php require_once 'view/' .$page .'.inc.php'; ?>
+                <?php require_once 'view/' .$page .'.view.php'; ?>
             </section>
         </div>
     </div>
-    <!-- scripts -->
+    <!-- CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/584f23e963.js"></script>
+    <!-- custom page js file -->
+    <?php customRequire($page, REQUIRE_JS_FILE); ?>
 </body>
