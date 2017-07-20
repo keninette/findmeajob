@@ -9,14 +9,18 @@ and open the template in the editor.
 */
 
 @import "constant";
+@import "mixins";
 @import "nav";
 
+/***********************************
+ ********** DOM elements ***********
+ ***********************************/
 body {
     font-size: 1.5em;
 }
 
 em {
-    color:          @color-green;
+    color:          @color-appealing;
     font-weight:    bold;
     
 }
@@ -25,6 +29,37 @@ h1 {
     font-size: 1.5em;
 }
 
-.small-info {
-    font-style: italic;
+/*************************************
+ ********** global classes ***********
+ *************************************/
+.btn-default {
+    background-color:   @color-appealing;
+    color:              @color-text-appealing;
+    font-weight:        bold;
 }
+
+.center {
+    text-align : center;
+}
+
+.row {
+    margin-right: 10px;
+}
+
+.small-info-error {
+    .small-info;
+    
+    color: @color-info-error;
+}
+
+.small-info-ok {
+    .small-info;
+    
+    color: @color-info-ok;
+}
+
+.small-margin-top {
+    margin-top: 10px !important;
+}
+
+

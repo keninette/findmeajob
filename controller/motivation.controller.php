@@ -1,28 +1,46 @@
 <?php
 
-$motivation['subject'] = '';
-$motivation['content'] = '';
+// a form has been filled
+if (isset($_GET['target'])) {
 
-// if form has been filled : store information into json file
-// display this info
-if (isset($_POST['form-motivation'])) {
+    switch($_GET['target']) {
+        
+        // cv form has been filled : upload cv
+        case 'cv':
+            $msg = uploadFile($_FILES["form-motivation"], "cv", ATTACHMENT_PATH_CV);
+            break;
+        
+        // motivation form has been filled : create json file and pdf
+        case 'motivation':
+            
+            if (isset($_POST['form-motivation'])) {
+                $motivation['subject'] = (string) htmlspecialchars($_POST['form-motivation']["subject"]);
+                $motivation['content'] = (string) htmlspecialchars($_POST['form-motivation']["content"]);
 
-    $motivation['subject'] = (string) htmlspecialchars($_POST['form-motivation']["subject"]);
-    $motivation['content'] = (string) htmlspecialchars($_POST['form-motivation']["content"]);
-    
-    // if file already exists, replace content
-    // else create and write into file
-    $jsonFile = fopen(JSON_PATH_MOTIV, 'w');
-    fwrite($jsonFile, json_encode($motivation));
-    fclose($jsonFile);
+                // if file already exists, replace content
+                // else create and write into file
+                $msg = writeJsonFile(ATTACHMENT_PATH_MOTIV_JSON, $motivation);
 
-// if form hasn't been filled
+                // todo create pdf
+                break;
+            }       
+    }    
+}
+
+// if motivation part of form hasn't been filled
 // look for json file
-// if it exists, display content    
-} else {    
-    if (file_exists(JSON_PATH_MOTIV)) {
-        $jsonData   = json_decode(file_get_contents(JSON_PATH_MOTIV), true); 
+// if it exists, display content
+if (! isset($motivation['subject']) || ! isset($motivation['content'])) {
+    if (file_exists(ATTACHMENT_PATH_MOTIV_JSON)) {
+        $jsonData   = json_decode(file_get_contents(ATTACHMENT_PATH_MOTIV_JSON), true); 
         $motivation['subject']    = $jsonData['subject'];
         $motivation['content']    = $jsonData['content'];
+    
+    // else you still need to set these variables
+    // or you will trigger an error in view
+    // you don't check if they are set in view in order to keep php code in view at its minimum    
+    } else {
+        $motivation['subject']    = '';
+        $motivation['content']    = '';
     }
 }

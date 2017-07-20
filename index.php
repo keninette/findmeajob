@@ -1,5 +1,6 @@
 <?php 
-    ini_set('display_errors', 1);
+    ini_set('display_errors',   1);
+    ini_set('file_uploads',     1);
     
     // require all mandatory components
     require_once 'config/constant.php';
@@ -50,7 +51,7 @@
     <script src="https://use.fontawesome.com/584f23e963.js"></script>
     <!-- custom page js file -->
     <?php
-        $filename = 'public/js' .$page .'.js';
-        echo '<script src="' .$page .'"></script>';
+        $filename = 'public/js/' .$page .'.js';
+        echo '<script src="' .$filename .'"></script>';
     ?>
 </body>

@@ -16,6 +16,9 @@ and open the template in the editor.
     Created on : 10 juil. 2017, 15:00:22
     Author     : kbj
 */
+.small-info {
+  font-style: italic;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -31,6 +34,9 @@ and open the template in the editor.
 nav {
   text-align: center;
 }
+/***********************************
+ ********** DOM elements ***********
+ ***********************************/
 body {
   font-size: 1.5em;
 }
@@ -41,7 +47,29 @@ em {
 h1 {
   font-size: 1.5em;
 }
-.small-info {
+/*************************************
+ ********** global classes ***********
+ *************************************/
+.btn-default {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
+}
+.center {
+  text-align: center;
+}
+.row {
+  margin-right: 10px;
+}
+.small-info-error {
   font-style: italic;
+  color: #F8004F;
+}
+.small-info-ok {
+  font-style: italic;
+  color: #00BD88;
+}
+.small-margin-top {
+  margin-top: 10px !important;
 }
 /*# sourceMappingURL=main.css.map */
