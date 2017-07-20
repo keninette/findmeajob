@@ -20,7 +20,10 @@
     <!-- custom css -->
     <link rel="stylesheet" href="public/css/main.css" />
     <!-- custom page css file -->
-    <?php customRequire($page, REQUIRE_CSS_FILE); ?>
+    <?php
+        $filename = 'public/css/' .$page .'.css';
+        if (file_exists($filename)) { echo '<link rel="stylesheet" type="text/css" href="' .$filename .'"'; }
+    ?>
 </head>
 <body>
     <div class="container-fluid">
@@ -35,7 +38,10 @@
             </nav>
             <section class="col-xs-10">
                 <!--include custom view -->
-                <?php require_once 'view/' .$page .'.view.php'; ?>
+                <?php
+                    $filename = 'view/' .$page .'.view.php';
+                    require_once $filename;
+                ?>
             </section>
         </div>
     </div>
@@ -43,5 +49,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/584f23e963.js"></script>
     <!-- custom page js file -->
-    <?php customRequire($page, REQUIRE_JS_FILE); ?>
+    <?php
+        $filename = 'public/js' .$page .'.js';
+        echo '<script src="' .$page .'"></script>';
+    ?>
 </body>
