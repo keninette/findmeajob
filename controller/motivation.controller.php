@@ -14,6 +14,7 @@ if (isset($_GET['target'])) {
         case 'motivation':
             
             if (isset($_POST['form-motivation'])) {
+                $motivation['contact'] = (string) htmlspecialchars($_POST['form-motivation']["contact"]);
                 $motivation['subject'] = (string) htmlspecialchars($_POST['form-motivation']["subject"]);
                 $motivation['content'] = (string) htmlspecialchars($_POST['form-motivation']["content"]);
 
@@ -21,7 +22,8 @@ if (isset($_GET['target'])) {
                 // else create and write into file
                 $msg = writeJsonFile(ATTACHMENT_PATH_MOTIV_JSON, $motivation);
 
-                // todo create pdf
+                // create motivation pdf (without customization)
+                createMotivationPdfFile($motivation['contact'], $motivation['subject'], $motivation['content']);
                 break;
             }       
     }    
@@ -30,9 +32,10 @@ if (isset($_GET['target'])) {
 // if motivation part of form hasn't been filled
 // look for json file
 // if it exists, display content
-if (! isset($motivation['subject']) || ! isset($motivation['content'])) {
+if (! isset($motivation['subject']) || ! isset($motivation['content']) || ! isset($motivation['contact'])) {
     if (file_exists(ATTACHMENT_PATH_MOTIV_JSON)) {
         $jsonData   = json_decode(file_get_contents(ATTACHMENT_PATH_MOTIV_JSON), true); 
+        $motivation['contact']    = $jsonData['contact'];
         $motivation['subject']    = $jsonData['subject'];
         $motivation['content']    = $jsonData['content'];
     
@@ -40,6 +43,7 @@ if (! isset($motivation['subject']) || ! isset($motivation['content'])) {
     // or you will trigger an error in view
     // you don't check if they are set in view in order to keep php code in view at its minimum    
     } else {
+        $motivation['contact']    = '';
         $motivation['subject']    = '';
         $motivation['content']    = '';
     }

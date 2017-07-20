@@ -23,6 +23,11 @@
 
     <form action="index.php?page=motivation&target=motivation" method="POST">
         <fieldset class="row">
+            <label for="form-motivation[contact]" class="col-xs-12 small-margin-top">Coordonnées</label>
+            <textarea id="form-motivation[contact]" name="form-motivation[contact]" class="col-xs-12" rows="8" placeholder="Nom, prénom, adresse, tel, mail, etc..."><?php echo $motivation['contact']; ?></textarea>
+        </fieldset>
+        
+        <fieldset class="row">
             <label for="form-motivation[subject]" class="col-xs-12 small-margin-top">Objet</label>
             <input type="text" id="form-motivation[subject]" name="form-motivation[subject]" class="col-xs-12" value="<?php echo $motivation['subject']; ?>" />
         </fieldset>

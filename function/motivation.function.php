@@ -73,3 +73,28 @@ function writeJsonFile(String $fullFileName, array $dataToEncode) :string {
         return "<p class=\"small-info-ok\">La sauvegarde de la lettre de motivation a bien été effectuée !</p>";
     }
 }
+
+function createMotivationPdfFile(String $contactInfo, String $subject, String $content, String $customizedContent = "") {
+    // get pdf api
+    require_once dirname(__DIR__) ."/public/vendor/mpdf60/mpdf.php";
+    
+    // get error message template and pdf template
+    //$basicErrorMessage = "<p class=\"small-info-error\">Une erreur est survenue durant la sauvegarde de la lettre de motivation %s</p>";
+    $htmlTemplate = file_get_contents(ATTACHMENT_PATH_MOTIV_TEMPLATE);
+    
+    // customize pdf content
+    // if there is some customized content to include, do it
+    if ($customizedContent != "") { $content = sprintf($content, $customizedContent); }
+    
+    // Replace 
+    $pdfContent = sprintf($htmlTemplate, $contactInfo, $subject, $content);
+    $pdfContent = str_replace("\r\n", "<br />", $pdfContent);
+    
+    // Create actual PDF file
+    $mpdf = new mPDF();
+    $mpdf->WriteHTML($motivationPdfContent);
+    $mpdf->Output(ATTACHMENT_PATH_MOTIV_PDF, 'F');
+    // todo handle errors and exceptions
+    
+    //return "";
+}
