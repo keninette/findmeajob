@@ -23,7 +23,7 @@ if (isset($_GET['target'])) {
                 $msg = writeJsonFile(ATTACHMENT_PATH_MOTIV_JSON, $motivation);
 
                 // create motivation pdf (without customization)
-                createMotivationPdfFile($motivation['contact'], $motivation['subject'], $motivation['content']);
+                createMotivationPdfFile($motivation['contact'], $motivation['subject'], $motivation['content'], "");
                 break;
             }       
     }    

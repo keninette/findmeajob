@@ -6,7 +6,6 @@
     require_once 'config/constant.php';
     require_once 'model/error.model.php';
     require_once 'model/pdo.model.php';
-    require_once 'function/config.function.php';
     
     // require index controller
     require_once 'controller/index.controller.php'; 
@@ -30,8 +29,10 @@
     <div class="container-fluid">
         <div class="row">
             <nav class="col-xs-2">
-                <i class="fa fa-black-tie fa-5x green" id="logo" aria-hidden="true"></i>
-                <h1>Find me a job !</h1>
+                <a href="index.php" class="no-decoration">
+                    <i class="fa fa-black-tie fa-5x green" id="logo" aria-hidden="true"></i>
+                    <h1>Find me a job !</h1>
+                </a>
                 <ul class="nav nav-sidebar navbar">
                     <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
                     <li><a href="index.php?page=application">Envoyer ma candidature</a></li>

@@ -1,0 +1,13 @@
+#btn-customize-motivation {
+  cursor: pointer;
+  padding-top: 10px;
+}
+#btn-customize-motivation i {
+  height: 30px;
+  text-align: center;
+  width: 40px;
+}
+#btn-customize-motivation :hover {
+  cursor: hand;
+}
+/*# sourceMappingURL=application.css.map */

@@ -73,8 +73,15 @@ function writeJsonFile(String $fullFileName, array $dataToEncode) :string {
         return "<p class=\"small-info-ok\">La sauvegarde de la lettre de motivation a bien été effectuée !</p>";
     }
 }
-
-function createMotivationPdfFile(String $contactInfo, String $subject, String $content, String $customizedContent = "") {
+ 
+/**
+ * Turns motivation letter into PDF file
+ * @param String $contactInfo : personnal contact info (name, address, phone, email, ...)
+ * @param String $subject : subject of letter
+ * @param String $content : content of letter (containing once "%s" in order to be able to customize content
+ * @param String $customizedContent : customized content, to insert into letter where "%s" is
+ */
+function createMotivationPdfFile(String $contactInfo, String $subject, String $content, String $customizedContent, String $fileName = "") {
     // get pdf api
     require_once dirname(__DIR__) ."/public/vendor/mpdf60/mpdf.php";
     
@@ -84,7 +91,7 @@ function createMotivationPdfFile(String $contactInfo, String $subject, String $c
     
     // customize pdf content
     // if there is some customized content to include, do it
-    if ($customizedContent != "") { $content = sprintf($content, $customizedContent); }
+    if (strpos($content, "%s") !== false) { $content = sprintf($content, $customizedContent); }
     
     // Replace 
     $pdfContent = sprintf($htmlTemplate, $contactInfo, $subject, $content);
@@ -92,8 +99,8 @@ function createMotivationPdfFile(String $contactInfo, String $subject, String $c
     
     // Create actual PDF file
     $mpdf = new mPDF();
-    $mpdf->WriteHTML($motivationPdfContent);
-    $mpdf->Output(ATTACHMENT_PATH_MOTIV_PDF, 'F');
+    $mpdf->WriteHTML($pdfContent);
+    $mpdf->Output($fileName === "" ? ATTACHMENT_PATH_MOTIV_PDF : $fileName, 'F');
     // todo handle errors and exceptions
     
     //return "";

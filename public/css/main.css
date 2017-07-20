@@ -16,7 +16,12 @@ and open the template in the editor.
     Created on : 10 juil. 2017, 15:00:22
     Author     : kbj
 */
+.normal-text {
+  color: #000;
+  text-decoration: none;
+}
 .small-info {
+  font-size: 1.5em !important;
   font-style: italic;
 }
 /*
@@ -58,14 +63,28 @@ h1 {
 .center {
   text-align: center;
 }
+.no-decoration {
+  color: #000;
+  text-decoration: none;
+}
+.no-decoration :hover {
+  color: #000;
+  text-decoration: none;
+}
+.no-decoration :visited {
+  color: #000;
+  text-decoration: none;
+}
 .row {
   margin-right: 10px;
 }
 .small-info-error {
+  font-size: 1.5em !important;
   font-style: italic;
   color: #F8004F;
 }
 .small-info-ok {
+  font-size: 1.5em !important;
   font-style: italic;
   color: #00BD88;
 }

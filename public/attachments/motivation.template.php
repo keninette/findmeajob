@@ -3,6 +3,6 @@
 <!-- Contact information -->
 <p>%s</p><br /><br />
 <!-------- Subject ------->
-<p>%s</p><br />
+<p>Objet : %s</p><br />
 <!-------- Content ------->
 <p>%s</p>
