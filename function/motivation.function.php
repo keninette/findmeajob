@@ -87,7 +87,7 @@ function createMotivationPdfFile(String $contactInfo, String $subject, String $c
     
     // get error message template and pdf template
     //$basicErrorMessage = "<p class=\"small-info-error\">Une erreur est survenue durant la sauvegarde de la lettre de motivation %s</p>";
-    $htmlTemplate = file_get_contents(ATTACHMENT_PATH_MOTIV_TEMPLATE);
+    $htmlTemplate = file_get_contents(TEMPLATE_MOTIV_PATH);
     
     // customize pdf content
     // if there is some customized content to include, do it

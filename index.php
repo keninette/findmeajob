@@ -1,11 +1,10 @@
 <?php 
-    ini_set('display_errors',   1);
-    ini_set('file_uploads',     1);
-    
+        
     // require all mandatory components
+    require_once 'config/ini.config.php';
     require_once 'config/constant.php';
-    require_once 'model/error.model.php';
     require_once 'model/pdo.model.php';
+    require_once 'model/error.model.php';
     
     // require index controller
     require_once 'controller/index.controller.php'; 
@@ -40,7 +39,13 @@
             </nav>
             <section class="col-xs-10">
                 <!--include custom view -->
+                <!-- jumbotron (only if there's a message to display) -->
+                <?php if (isset($msg)) {
+                ?>    
+                    <section class="jumbotron small-margin-top"><?php echo $msg; ?></section>
                 <?php
+                    }
+                
                     $filename = 'view/' .$page .'.view.php';
                     require_once $filename;
                 ?>

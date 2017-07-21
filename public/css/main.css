@@ -21,7 +21,8 @@ and open the template in the editor.
   text-decoration: none;
 }
 .small-info {
-  font-size: 1.5em !important;
+  color: #676767;
+  font-size: 0.9em !important;
   font-style: italic;
 }
 /*
@@ -79,12 +80,14 @@ h1 {
   margin-right: 10px;
 }
 .small-info-error {
-  font-size: 1.5em !important;
+  color: #676767;
+  font-size: 0.9em !important;
   font-style: italic;
   color: #F8004F;
 }
 .small-info-ok {
-  font-size: 1.5em !important;
+  color: #676767;
+  font-size: 0.9em !important;
   font-style: italic;
   color: #00BD88;
 }

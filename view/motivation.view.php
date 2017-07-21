@@ -1,10 +1,3 @@
-<!-- jumbotron (only if a form has just been filled -->
-<?php if (isset($msg)) {
-?>    
-    <section class="jumbotron small-margin-top"><?php echo $msg; ?></section>
-<?php
-} ?>
-
 <!-- Upload CV on server -->
 <section> 
     <h1 class="center">Sélection du CV</h1>

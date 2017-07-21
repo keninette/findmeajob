@@ -8,10 +8,12 @@
 //    Password: your Gmail password
 //    Port: 465 (SSL required) or 587 (TLS required)
 
-$smtpServer             = 'smtp.gmail.php';
-$smtpSecureConnection   = "TLS";
-$smtpUseAuthentication  = true;
-$smtpUsername           = 'keninette.bloggeusedeluxe@gmail.com';
-$smtpSender             = $smtpUsername;
-$smtpPassword           = 'lupu5d31./GMbdl';
-$smtpPort               = 587;
+$smtp['server']             = 'smtp.gmail.com';
+$smtp['secureConnection']   = "TLS";
+$smtp['useAuthentication']  = true;
+$smtp['username']           = 'smtp.jeangilles@gmail.com';
+$smtp['sender']             = $smtp['username'];
+$smtp['senderName']         = 'Jean-Gilles';
+$smtp['password']           = 'nobodyputsbabyinacorner./GM';
+$smtp['port']               = 587;
+$smtp['receiveEmailCopy']   = true;

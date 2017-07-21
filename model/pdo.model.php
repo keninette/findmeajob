@@ -2,24 +2,21 @@
 
 /**
  * Connect or disconnect from database
- * @param PDOStatement $pdo : PDOStatement used for queries
+ * @param $pdo : variable that will be instanciated as PDOStatement and used for queries
  * @param bool $connect : true -> connect to database, false -> disconnect from database
  */
-function pdoDbConnection(PDOStatement $pdo, bool $connect = true) {
+function pdoDbConnection() {
     
     try {
         // Connect to database
-        if ($connect) {
-
-            // Get db info
-            require_once 'config/db.config.php';
-             // Connect to database
-            $pdo = new PDO($dsn, $user, $pwd);
-
-        // Disconnect from database    
-        } else {
-            $pdo = null;
-        }
+        // Get db info
+        require 'config/db.config.php';
+         // Connect to database
+        $pdo = new PDO($dsn, $user, $pwd);
+        
+        // Return PDOStatement
+        return $pdo;
+        
     } catch (PDOException $e) {
         echo('<p class="error">Erreur durant la connexion à la base de données : <br />' .$e->getMessage() .'</p>');
     }
@@ -35,14 +32,14 @@ function pdoQuery(String $query) : array {
     
     try {
         // Connect to database
-        pdoDbConnection($pdo);
+        $pdo = pdoDbConnection();
 
         // Execute query
         $data = $pdo->query($query)->fetchAll();
 
         // Disconnect from database
-        pdoDbConnection($pdo, false);
-
+        $pdo = null;
+        
         // Return dataset
         return $data;
     
@@ -64,12 +61,18 @@ function pdoQuery(String $query) : array {
     
 }
 
+/**
+ * Prepares a query and execute it
+ * @param String $query : query text with ":argument" inside
+ * @param array $arguments : arguments to be written into the query
+ * @return array : data returned by database
+ */
 function pdoPrepareQuery(String $query, array $arguments) :array {
     
     try {
         
         // Connect to database
-        pdoDbConnection($pdo);
+        $pdo = pdoDbConnection();
         
         // Prepare statement with query and params given in arguments
         $st = $pdo->prepare($query);
@@ -79,12 +82,18 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         }
         
         // execute prepared statement & return data
-        $data = $st->execute();
+        $result = $st->execute();
+        
+        if ($result) {
+            $return = $st->fetchAll();;
+        } else {
+            $return = NULL;
+        }
         
         // Disconnect from database
-        pdoDbConnection($pdo, false);
+        $pdo = null;
         
-        return $data;
+        return $return;
         
     } catch (PDOException $e) {
         

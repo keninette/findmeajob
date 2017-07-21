@@ -3,8 +3,11 @@
 // General
 define('HOME_PAGE', 'motivation');
 
-// ATTACHEMENT
-define('ATTACHMENT_PATH_MOTIV_TEMPLATE',    'public/attachments/motivation.template.php');
+// Templates
+define('TEMPLATE_EMAIL_PATH',    'view/template/email.template.html');
+define('TEMPLATE_MOTIV_PATH',    'view/template/motivation.template.php');
+
+// Attachments
 define('ATTACHMENT_PATH_MOTIV_JSON',        'public/attachments/motivation.json');
 define('ATTACHMENT_PATH_MOTIV_PDF',         'public/attachments/motivation.pdf');
 define('ATTACHMENT_PATH_CV',                'public/attachments/cv.pdf');
