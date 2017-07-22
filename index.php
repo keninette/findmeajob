@@ -35,12 +35,14 @@
                 <ul class="nav nav-sidebar navbar">
                     <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
                     <li><a href="index.php?page=application">Envoyer ma candidature</a></li>
+                    <li><a href="index.php?page=history">Historique des candidatures</a></li>
                 </ul>
             </nav>
             <section class="col-xs-10">
+                <h1 class="center bordered-h1"><?php echo $pageTitle; ?></h1>
                 <!--include custom view -->
                 <!-- jumbotron (only if there's a message to display) -->
-                <?php if (isset($msg)) {
+                <?php if (isset($msg) && $msg !== "") {
                 ?>    
                     <section class="jumbotron small-margin-top"><?php echo $msg; ?></section>
                 <?php

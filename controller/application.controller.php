@@ -1,5 +1,7 @@
 <?php 
 
+$pageTitle = "Envoyer une candidature";
+
 // If form has been submitted, send email !
 if (isset($_POST['form-application'])) {
         

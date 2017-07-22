@@ -35,7 +35,14 @@ function pdoQuery(String $query) : array {
         $pdo = pdoDbConnection();
 
         // Execute query
-        $data = $pdo->query($query)->fetchAll();
+        $st = $pdo->query($query);
+        
+        // Get result
+        if ($st !== false ) { 
+            $data = $st->fetchAll(); 
+        } else {
+            $data = NULL;
+        }
 
         // Disconnect from database
         $pdo = null;

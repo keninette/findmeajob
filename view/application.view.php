@@ -1,5 +1,3 @@
-<h1 class="center">Envoi de candidature</h1>
-
 <form action="index.php?page=application" method="POST">
     <!-- recruiter block, with email, name, gender, etc... -->
     <fieldset class="row" id="block-recruiter">

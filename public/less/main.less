@@ -20,18 +20,35 @@ body {
 }
 
 em {
-    color:          @color-appealing;
-    font-weight:    bold;
-    
+    .em
 }
 
 h1 {
-    font-size: 1.5em;
+    font-size:              1.5em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+td {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    .em;
 }
 
 /*************************************
  ********** global classes ***********
  *************************************/
+.bordered-h1 {
+    border-bottom-style:    solid;
+    border-bottom-width:    1px;    
+    padding-bottom:         10px;
+}
+
 .btn-default {
     background-color:   @color-appealing;
     color:              @color-text-appealing;
@@ -40,6 +57,16 @@ h1 {
 
 .center {
     text-align : center;
+}
+
+.hidden {
+    display: none;
+}
+
+.table-hover {
+    background-color:   @color-appealing;
+    color:              @color-text-appealing;
+    font-weight:        bold;
 }
 
 .no-decoration {

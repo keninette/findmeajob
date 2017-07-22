@@ -19,3 +19,13 @@ function generateToken(int $tokenLength) :String {
     
     return $token;
 }
+
+/**
+ * Formatte une dateheure au format français
+ * @param String $dateString : date à formater
+ * @return String : date formatée
+ */
+function setDateFormat(String $dateString) :String {
+    
+    return $dateString === "0000-00-00 00:00:00" ? "Aucune" : date_format(date_create($dateString), "d/m/Y");
+}

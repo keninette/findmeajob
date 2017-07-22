@@ -16,6 +16,10 @@ and open the template in the editor.
     Created on : 10 juil. 2017, 15:00:22
     Author     : kbj
 */
+.em {
+  color: #15E4BB;
+  font-weight: bold;
+}
 .normal-text {
   color: #000;
   text-decoration: none;
@@ -53,9 +57,25 @@ em {
 h1 {
   font-size: 1.5em;
 }
+h2 {
+  font-size: 1.3em;
+}
+td {
+  text-align: center;
+}
+th {
+  text-align: center;
+  color: #15E4BB;
+  font-weight: bold;
+}
 /*************************************
  ********** global classes ***********
  *************************************/
+.bordered-h1 {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding-bottom: 10px;
+}
 .btn-default {
   background-color: #15E4BB;
   color: #FFF;
@@ -63,6 +83,14 @@ h1 {
 }
 .center {
   text-align: center;
+}
+.hidden {
+  display: none;
+}
+.table-hover {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
 }
 .no-decoration {
   color: #000;

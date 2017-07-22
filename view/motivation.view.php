@@ -1,6 +1,6 @@
 <!-- Upload CV on server -->
 <section> 
-    <h1 class="center">Sélection du CV</h1>
+    <h2 class="center">Sélection du CV</h2>
     <fieldset class="row">
         <form action="index.php?page=motivation&target=cv" method="POST" enctype="multipart/form-data">
             <label for="form-motivation[cv]" class="col-xs-12 small-margin-top">Sélectionnez votre CV (pdf uniquement)</label><br />
@@ -12,7 +12,7 @@
 
 <!-- Write motivation letter -->
 <section> 
-    <h1 class="center">Lettre de motivation</h1>
+    <h2 class="center">Lettre de motivation</h2>
 
     <form action="index.php?page=motivation&target=motivation" method="POST">
         <fieldset class="row">

@@ -1,5 +1,7 @@
 <?php
 
+$pageTitle = "Lettre de motivation & CV";
+
 // a form has been filled
 if (isset($_GET['target'])) {
 
