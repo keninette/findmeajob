@@ -48,6 +48,7 @@ nav {
  ********** DOM elements ***********
  ***********************************/
 body {
+  color: #333;
   font-size: 1.5em;
 }
 em {
@@ -55,9 +56,11 @@ em {
   font-weight: bold;
 }
 h1 {
+  color: #333;
   font-size: 1.5em;
 }
 h2 {
+  color: #333;
   font-size: 1.3em;
 }
 td {
@@ -87,10 +90,8 @@ th {
 .hidden {
   display: none;
 }
-.table-hover {
-  background-color: #15E4BB;
-  color: #FFF;
-  font-weight: bold;
+.medium-margin-left {
+  margin-left: 20px;
 }
 .no-decoration {
   color: #000;
@@ -121,5 +122,10 @@ th {
 }
 .small-margin-top {
   margin-top: 10px !important;
+}
+.table-hover {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
 }
 /*# sourceMappingURL=main.css.map */

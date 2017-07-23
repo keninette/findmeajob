@@ -16,7 +16,8 @@ and open the template in the editor.
  ********** DOM elements ***********
  ***********************************/
 body {
-    font-size: 1.5em;
+    color:      @color;
+    font-size:  1.5em;
 }
 
 em {
@@ -24,10 +25,12 @@ em {
 }
 
 h1 {
-    font-size:              1.5em;
+    color:      @color;
+    font-size:  1.5em;
 }
 
 h2 {
+    color:     @color;
     font-size: 1.3em;
 }
 
@@ -63,10 +66,8 @@ th {
     display: none;
 }
 
-.table-hover {
-    background-color:   @color-appealing;
-    color:              @color-text-appealing;
-    font-weight:        bold;
+.medium-margin-left {
+    margin-left: 20px;
 }
 
 .no-decoration {
@@ -101,4 +102,8 @@ th {
     margin-top: 10px !important;
 }
 
-
+.table-hover {
+    background-color:   @color-appealing;
+    color:              @color-text-appealing;
+    font-weight:        bold;
+}
