@@ -1,7 +1,7 @@
 <?php
 
 // General
-define('HOME_PAGE', 'motivation');
+define('HOME_PAGE', 'index');
 
 // Templates
 define('TEMPLATE_EMAIL_PATH',    'view/template/email.template.html');
