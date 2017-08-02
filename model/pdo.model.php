@@ -40,8 +40,9 @@ function pdoQuery(String $query) : array {
         // Get result
         if ($st !== false ) { 
             $data = $st->fetchAll(); 
+            $data["error"] = false;
         } else {
-            $data = NULL;
+            $data["error"] = true;
         }
 
         // Disconnect from database
@@ -63,7 +64,7 @@ function pdoQuery(String $query) : array {
         // Write error into db
         writeError(ERROR_CODE_PDO, $errorMsg);
         
-        return [];
+        return array("error" => true);
     }
     
 }
@@ -92,9 +93,10 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         $result = $st->execute();
         
         if ($result) {
-            $return = $st->fetchAll();;
+            $return = $st->fetchAll();
+            $return["error"] = false;
         } else {
-            $return = NULL;
+            $return = array("error" => true);
         }
         
         // Disconnect from database
@@ -115,7 +117,7 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         // Write error into db
         writeError(ERROR_CODE_PDO, $errorMsg);
         
-        return [];
+        return array("error" => true);
     }
 }
 

@@ -1,0 +1,37 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10 juil. 2017, 15:00:22
+    Author     : kbj
+*/
+.em {
+  color: #15E4BB;
+  font-weight: bold;
+}
+.normal-text {
+  color: #000;
+  text-decoration: none;
+}
+.small-info {
+  color: #676767;
+  font-size: 0.9em !important;
+  font-style: italic;
+}
+.table-hover {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
+}
+tr:not(.heading) {
+  cursor: pointer;
+}
+tr:not(.heading):hover {
+  cursor: hand;
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
+}
+/*# sourceMappingURL=history.css.map */

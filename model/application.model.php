@@ -19,7 +19,7 @@ function insertApplicationIntoDb(array $formApplication) :String {
     //      array(
     //          PDO_PARAM_ORDER_CODE    => ":code_param"
     //          , PDO_PARAM_ORDER_VALUE => "param_value"
-    //          , PDO_PARAM_ORDER_TYPE  => PDO_PARAM_...
+    //          , PDO_PARAM_ORDER_TYPE  => PDO::PARAM_...
     //      );
     
     // $arguments is the main array, the one we will pass onto the pdoPrepareQuery() function
@@ -48,7 +48,7 @@ function insertApplicationIntoDb(array $formApplication) :String {
     
     // Now that everything's ready, we can (finally!) insert application into database
     // Here, we don't need no data return, but we still want to know if everything went fine
-    if (pdoPrepareQuery($query, $arguments) === NULL) {
+    if (pdoPrepareQuery($query, $arguments)["error"]) {
         return "<p class=\"small-info-error\">Une erreur est survenue durant l'enregistrement de la candidature en base de données. </p>";
     } else {
         return "<p class=\"small-info-ok\">L'enregistrement de la candidature en base de données a bien été effectué !</p>";

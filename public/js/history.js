@@ -1,17 +1,6 @@
 // To be executed as soon as the whole DOM has been loaded
 $(function(){
     
-    // Every time the mouse comes over a table line
-    // We add a css class on it to make it look like it's selected
-    // And remove it when mouse goes out
-    $("tr:not(.heading)")
-        .mouseover(function(){
-            $(this).addClass("table-hover");
-        })
-        .mouseout(function(){
-            $(this).removeClass("table-hover")    ;
-        });
-    
     // Every time we click on a table line
     // We display forms to update or re-send application
     // And we prefill it

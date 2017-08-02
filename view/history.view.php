@@ -35,6 +35,7 @@ if (isset($displayTable) && $displayTable) {
     //      you almost NEVER display html in a php string
     //      that's good practice, and that's way easier to maintain
     foreach($applications as $application) {
+        if ($application !== false) {
 ?>
         <tr id="tr-<?php echo $application['id']; ?>">
             <td class="hidden" id="id-<?php echo $application['id']; ?>"><?php echo $application['id']; ?></td>
@@ -48,6 +49,7 @@ if (isset($displayTable) && $displayTable) {
             <td id="meeting_date-<?php echo $application['id']; ?>"><?php echo setDateFormat($application['meeting_date']); ?></td> 
         </tr>
 <?php             
+        }
     }
 ?>
     </table>
