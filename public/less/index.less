@@ -1,7 +1,55 @@
 @import "constant";
+@import "mixins";
+
+#resend-nb-tile {
+    &:hover {
+        cursor: hand;
+        cursor: pointer;
+    }
+    
+    #resend-nb {
+        .circle("#fff");
+        background-color:   #fff;
+        color:              @color-appealing;
+        display:            block;
+        font-size:          0.7em;
+        position:           relative;
+        z-index:            2;
+    }
+}
+
+
+#total-applications-tile {
+    padding-top: 45px;
+}
+
+.appeal-tile {
+    background-color:   @color-appealing;
+    color:              #FFF !important;
+    
+    em {
+        color:          #FFF !important;
+        font-size:      2.5em;
+    }
+}
+
+.default-tile {
+     background-color:   @color-light-grey;
+}
 
 .tile {
-    background-color:   @color-light-grey;
+    border-color:       #fff;
+    border-style:       solid;
+    border-width:       10px;
+    font-size:          2em;
     font-weight:        bold;
     height:             300px;
+    line-height:        100px;
+    text-align:         center;
+    text-transform:     uppercase;
+    vertical-align:     middle;
+
+    .dial {
+        padding-top: 10px;
+    }
 }

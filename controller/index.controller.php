@@ -1,39 +1,57 @@
 <?php
 
+require_once 'function/application.function.php';
+require_once 'model/history.model.php';
+
 $pageTitle      = "Résumé";
 $msg            = "";
+$msgEmail       = "";
 $displayData    = true;
+$emailsSent     = true;
 
-// if url arguement "page" has been defined, use it
-if (isset($_GET['page'])) {
+// if required page is the home page, we get all the info we need 
+// in order to display them in dashboard
+$data = getDashboardData();
 
-    // get the page user asked for
-    $page = (string) htmlspecialchars($_GET['page']);
-    
-    // if it's empty or if file doesn't exist, just redirect user on main page
-    if ($page === '' || !(file_exists('controller/' .$page .'.controller.php') && file_exists('view/' .$page .'.view.php'))) {
-        $page = HOME_PAGE;
-    }
-
-// if not, send user on home page    
+if (isset($data["error"]) && $data["error"]) {
+    $msg .= "<p class=\"small-info-error\">Une erreur est survenue durant la récupération des données</p>";
+    $displayData = false;
 } else {
-    $page = HOME_PAGE;
-}
-
-// require page functions, model (if they exist) and controller (mandatory)
-$filename = 'function/' .$page .'.function.php';
-if (file_exists($filename)) { require_once $filename; }
-$filename = 'model/' .$page .'.model.php';
-if (file_exists($filename)) { require_once $filename; }
-$filename = 'controller/' .$page .'.controller.php';
-require_once $filename;
-
-// if required page is the home page, we get all the info we need
-if ($page === HOME_PAGE) {
-    $data = getDashboardData();
+    $data = $data[0];
     
-    if (isset($data["error"]) && $data["error"]) {
-        $msg .= "<p class=\"small-info-error\">Une erreur est survenue durant la récupération des données</p>";
-        $displayData = false;
+    // if user clicked on "resend" link, resend all awaiting applications
+    if(isset($_GET["target"]) && (string) $_GET["target"] === "resend") {
+        
+        // if there's no application to resend, just say so
+        if ($data["oldApplicationsNb"] === 0) {
+            $msg .= "<p class=\"small-info\">Il n'y a aucune candidature à relancer</p>";
+        } else {
+            $applicationsToResend = getApplicationsToResendData();
+            
+            if (isset($applicationsToResend["error"]) && $applicationsToResend["error"]) {
+                $msg .= "<p class=\"small-info-error\">Une erreur est survenue durant le renvoi des candidatures</p>"; 
+            } else {
+                foreach($applicationsToResend as $thisApplication) {
+                    // if $thisApplication is the "error" index, it's a boolean so we won't display it
+                    if (!is_bool($thisApplication)) {
+                        $msgEmail = sendMotivationEmail($thisApplication['email'], $thisApplication['salutation'], $thisApplication['customized_motivation']); 
+                        
+                        // if erverything went fine, update application's last_sent_date
+                        if (isErrorMessage($msgEmail)) {
+                            $emailsSent = false;
+                        } else {
+                            updateResentApplication($thisApplication['id'], $thisApplication['salutation'], $thisApplication['customized_motivation']);
+                            $data['oldApplicationsNb']--;
+                        }
+                    }
+                }
+                
+                // if one or multiple emails hasn't been sent correctly, tell the user
+                // else just display the success message returned by sendMotivationEmail()
+                $msg .= $emailsSent ? $msgEmail : '<p class="small-info-error">Une erreur est survenue pendant l\'envoi d\'un ou plusieurs mails</p>';
+            }
+        }
     }
 }
+
+

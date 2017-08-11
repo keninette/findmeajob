@@ -1,13 +1,5 @@
-<?php 
-        
-    // require all mandatory components
-    require_once 'config/ini.config.php';
-    require_once 'config/constant.php';
-    require_once 'model/pdo.model.php';
-    require_once 'model/error.model.php';
-    
-    // require index controller
-    require_once 'controller/index.controller.php'; 
+<?php
+    require_once 'router.php';
 ?>
 
 <!-- display page -->
@@ -18,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- custom css -->
     <link rel="stylesheet" href="public/css/main.css" />
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"> 
     <!-- custom page css file -->
     <?php
         $filename = 'public/css/' .$page .'.css';
@@ -57,6 +51,8 @@
     <!-- CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/584f23e963.js"></script>
+    <script src="public/vendor/knob/js/jquery.knob.js"></script>
+    <script src="public/js/main.js"></script>
     <!-- custom page js file -->
     <?php
         $filename = 'public/js/' .$page .'.js';

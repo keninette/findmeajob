@@ -29,6 +29,11 @@ and open the template in the editor.
   font-size: 0.9em !important;
   font-style: italic;
 }
+.table-hover {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -49,6 +54,7 @@ nav {
  ***********************************/
 body {
   color: #333;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5em;
 }
 em {

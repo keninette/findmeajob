@@ -7,9 +7,66 @@ and open the template in the editor.
     Created on : 10 juil. 2017, 15:00:22
     Author     : kbj
 */
-.tile {
+.em {
+  color: #15E4BB;
+  font-weight: bold;
+}
+.normal-text {
+  color: #000;
+  text-decoration: none;
+}
+.small-info {
+  color: #676767;
+  font-size: 0.9em !important;
+  font-style: italic;
+}
+.table-hover {
+  background-color: #15E4BB;
+  color: #FFF;
+  font-weight: bold;
+}
+#resend-nb-tile:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+#resend-nb-tile #resend-nb {
+  border-color: "#fff";
+  border-radius: 50%;
+  border-width: 1px;
+  background-color: #fff;
+  color: #15E4BB;
+  display: block;
+  font-size: 0.7em;
+  position: relative;
+  z-index: 2;
+}
+#total-applications-tile {
+  padding-top: 45px;
+}
+.appeal-tile {
+  background-color: #15E4BB;
+  color: #FFF !important;
+}
+.appeal-tile em {
+  color: #FFF !important;
+  font-size: 2.5em;
+}
+.default-tile {
   background-color: #F7F7F7;
+}
+.tile {
+  border-color: #fff;
+  border-style: solid;
+  border-width: 10px;
+  font-size: 2em;
   font-weight: bold;
   height: 300px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.tile .dial {
+  padding-top: 10px;
 }
 /*# sourceMappingURL=index.css.map */
