@@ -27,9 +27,10 @@
                     <h1>Find me a job !</h1>
                 </a>
                 <ul class="nav nav-sidebar navbar">
-                    <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
                     <li><a href="index.php?page=application">Envoyer ma candidature</a></li>
                     <li><a href="index.php?page=history">Historique des candidatures</a></li>
+                    <li class="active"><a href="index.php?page=motivation">Lettre de motivation</a></li>
+                    <li class="active"><a href="index.php?page=htmllivedisplay">Editions HTML en direct</a></li>
                 </ul>
             </nav>
             <section class="col-xs-10">
