@@ -1,4 +1,20 @@
-.fullscreen-height {
-  background-color: red;
+/*
+ * In order to display fullscreen sections to almost 100% of screen height available
+ * Just force body and HTML to 100% value
+ * And set sections to a bit less % of that height
+ * Easy as fuck and no jquery needed
+ */
+body,
+html {
+  height: 100%;
+}
+section {
+  height: 97%;
+}
+#html-code {
+  background-color: #1C1C1C;
+  color: #FFF;
+  height: 100%;
+  resize: none;
 }
 /*# sourceMappingURL=htmllivedisplay.css.map */
