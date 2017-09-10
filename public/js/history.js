@@ -37,6 +37,5 @@ $(function(){
         
         // Show application forms, prefilled for user        
         $("#application-forms").removeClass("hidden");
-        
     });
 });

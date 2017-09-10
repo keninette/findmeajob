@@ -21,7 +21,7 @@ function getAllApplicationsHistory() :array {
         ORDER BY    company;
     ';
     
-    // Execute query and restun result set
+    // Execute query and return result set
     return pdoQuery($query);
 }
 

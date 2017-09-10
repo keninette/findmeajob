@@ -4,8 +4,9 @@ require_once 'function/main.function.php';
 require_once 'function/application.function.php';
 
 // Titre de la page
-$pageTitle = "Historique des candidatures";
-$msg = "";
+$pageTitle  = "Historique des candidatures";
+$msg        = "";
+$companies  = [];
 
 // If one of the forms has been filled
 if (isset($_GET['target']) && isset($_POST['application'])){
@@ -53,7 +54,15 @@ if (isset($applications["error"]) && $applications["error"]) {
 // count($applications) will always be at least equal to 1, because of the $application["error"]
 } else {
     if (count($applications) > 1) {
-        $displayTable = true;
+        $displayTable   = true;
+        
+        // ---------------------- datalist management -------------------
+        // Get all companies in an array we can work on (delete double entries and sort it alphabetically)
+        $companies      = array_unique(array_column($applications, 'company'));
+        sort($companies);
+        // Get all recipients in an array, delete double entries and sort it alphabetically
+        $recipients     = array_unique(array_column($applications, 'email'));
+        sort($recipients);
     } else {
         $msg .= "<p class=\"small-info\">Il n'y a aucune candidature à afficher.</p>";
         $displayTable = false;

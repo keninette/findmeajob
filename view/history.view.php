@@ -12,6 +12,40 @@ if (isset($displayTable) && $displayTable) {
 //                    , company
 //                    , customized_motivation
 ?>    
+    <!---------------------- DISPLAY FILTERS -------------------->
+    <section id="filters-section" class="row">
+        <form method="POST" action="index.php?page=history&target=filter">
+            <fieldset class="col-xs-6">
+                <label for="application-filter[company]" class="col-md-4 col-xs-12 small-margin-top">Entreprise</label>
+                <input name="application-filter[company]" id="application-filter[company]" type="text" list="company-data" class="datalist col-xs-12 col-md-8 small-margin-top"/>
+                <datalist id="company-data">
+                <?php
+                    foreach ($companies as $thisCompany) {
+                ?>
+                    <option value="<?php echo $thisCompany; ?>"></option>
+                <?php
+                    }        
+                ?>
+                </datalist>
+                <label for="application-filter[email]" class="col-md-4 col-xs-12 small-margin-top">Destinataire</label>
+                <input name="application-filter[email]" id="application-filter[email]" type="text" list="recipients-data" class="datalist col-xs-12 col-md-8 small-margin-top"/>
+                <datalist id="recipients-data">
+                <?php
+                    foreach ($recipients as $thisRecipient) {
+                ?>
+                    <option value="<?php echo $thisRecipient; ?>"></option>
+                <?php
+                    }        
+                ?>
+                </datalist>
+            </fieldset>
+            <fieldset class="col-xs-6">
+                <input type="submit" value="Filtrer" class="btn btn-default"/>
+                <input type="reset" value="Réinitialier les filtres" class="small-margin-top" />
+            </fieldset>   
+        </form>
+    <!---------------------- DISPLAY TABLE -------------------->
+    </section>
     <p class="small-info row">Sélectionnez une candidature pour la mettre à jour ou l'envoyer de nouveau.</p>
     <table class="table table-stripped row">
         <tr class="heading">
@@ -58,6 +92,7 @@ if (isset($displayTable) && $displayTable) {
 ?>
 </section>
 
+<!---------------------- DISPLAY FORM -------------------->
 <!-- form to update selected application, hidden at loadind. Made visible and pre-filled when a line of table is selected -->
 <section id="application-forms" class="hidden row medium-margin-left">
     <form action="index.php?page=history&target=update" method="POST" class="row">
