@@ -6,7 +6,6 @@
  * @return array : applications retrived from database
  */
 function getApplicationsHistory(array $filters = null) :array {
-    $queryFilters = '';
     
 // Write query to get applications
     $query = '
@@ -24,51 +23,77 @@ function getApplicationsHistory(array $filters = null) :array {
         ORDER BY    company;
     ';
     
-    // Add filters and prepare query if necessary
+    // No filters : execute query as it is
+    if (is_null($filters) || count($filters) === 0) {
+        return pdoQuery(sprintf($query, ''));
+
+    // Add filters and prepare query
     // Merge query & query filters
     // Execute query and return result set
-    if(!is_null($filters) && count($filters) > 0) {
-        $iterator               = 0;
-        $previousColumnName     = '';
-        $previousConditionOr    = false;
-        
-        foreach ($filters as $filter) {
-            // Construct query filter and prepare it for PDO bindParam()
-            // If value is a bool, we have to compare column value to default timestamp
-            // The result of this comparison should be what's in the bool value
-            // If not, it's a string that gives us the column value we're looking for
-            
-            // WHERE 1=1
-            // AND 2=2
-            // AND (3=3 OR 4=4)
-            if (is_bool($filter[PDO_PARAM_ORDER_VALUE])) {
-                if($filter[PDO_PARAM_ORDER_COLUMN_NAME] === $previousColumnName) {    
-                    $queryFilters .=    ' OR (' .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .'= \'' .DEFAULT_DB_DATE .'\') = ' .$filter[PDO_PARAM_ORDER_CODE];    
-                    $previousConditionOr = true;
-                } else {
-                    $queryFilters .=    $previousConditionOr ? ')' : '' 
-                                        .($iterator === 0 ? ' WHERE ' : ' AND ')
-                                        .'((' .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .'= \'' .DEFAULT_DB_DATE .'\') = ' .$filter[PDO_PARAM_ORDER_CODE];
-                    $previousConditionOr = false;
-                }
-                $previousColumnName = $filter[PDO_PARAM_ORDER_COLUMN_NAME];
-            } else {
-                // Filter pattern : "WHERE/AND filterColumn =/LIKE :filterColumn
-                $queryFilters .=     ($iterator === 0 ? ' WHERE ' : ' AND ') 
-                                    .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .' = ' .$filter[PDO_PARAM_ORDER_CODE];        
-            }
-            
-            // Increment iterator
-            $iterator++;
-        }
-        if ($previousConditionOr) { $queryFilters .= ')'; }
-        var_dump(sprintf($query, $queryFilters));
-        return pdoPrepareQuery(sprintf($query, $queryFilters), $filters);
-    
-        
     } else {
-        return pdoQuery(sprintf($query, $queryFilters));
+        return pdoPrepareQuery(sprintf($query, constructFiltersQuery($filters)), $filters);
     }
+}
+
+/**
+ * Create a string to complete main query in order to include filters selected by user
+ * @param array $filters : array of filters used
+ * @return string : string to add to the main query
+ */
+function constructFiltersQuery(array $filters) :string {
+    $queryFilters                       = '';
+    $iterator                           = 0;
+    $previousColumnName                 = '';
+    $additionnalParenthesisOpened       = false;
+
+    foreach ($filters as $filter) {
+        // Construct query filter and prepare it for PDO bindParam()
+        // If value is a bool, we have to compare column value to default timestamp
+        // The result of this comparison should be what's in the bool value
+        // If not, it's a string that gives us the column value we're looking for
+        if (is_bool($filter[PDO_PARAM_ORDER_VALUE])) {
+
+            // In order to construct correctly query filter
+            // If both filters have been checked concerning the same column
+            // We need to create a single condition for both filters
+            // Which would give something like :
+            //      WHERE   condition0
+            //      AND     (column = value0 OR column = value1) <-- we work on this one (both conditions separed by OR create condition1)
+            //      AND     condition2
+            // To do that, we compare previous filter's column name and current filter's column name
+            // If previous and current filters' column names are the same, we create the "OR" condition
+            // Because the same column can NEVER satisfy both conditions
+            if($filter[PDO_PARAM_ORDER_COLUMN_NAME] === $previousColumnName) {    
+                $queryFilters .=    ' OR (' .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .' != \'' .DEFAULT_DB_DATE .'\') = ' .$filter[PDO_PARAM_ORDER_CODE];    
+
+
+            // If filters' column names are different, it means we're using another filter
+            // Therefore another "AND" condition
+            // So, we close the additionnal parenthesis linking condition1.1 OR condition1.2 as a single condition1 if necessary
+            // And we open a new additionnal parenthesis to be able to create another "OR" condition inside this one if necessary    
+            } else {
+                $queryFilters .=    ($additionnalParenthesisOpened ? ')' : '')  
+                                    .($iterator === 0 ? ' WHERE ' : ' AND ')
+                                    .'((' .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .' != \'' .DEFAULT_DB_DATE .'\') = ' .$filter[PDO_PARAM_ORDER_CODE];
+                $additionnalParenthesisOpened = true;
+            }
+            $previousColumnName = $filter[PDO_PARAM_ORDER_COLUMN_NAME];
+        } else {
+            // Filter pattern : "WHERE/AND filterColumn =/LIKE :filterColumn
+            $queryFilters .=    ($additionnalParenthesisOpened ? ')' : '')
+                                .($iterator === 0 ? ' WHERE ' : ' AND ') 
+                                .addslashes($filter[PDO_PARAM_ORDER_COLUMN_NAME]) .' = ' .$filter[PDO_PARAM_ORDER_CODE];        
+            $additionnalParenthesisOpened = false;
+        }
+
+        // Increment iterator
+        $iterator++;
+    }
+
+    // Don't forget to close the last additionnalParenthesis if it has been opened
+    if ($additionnalParenthesisOpened) { $queryFilters .= ')'; }
+
+    return $queryFilters;
 }
 
 /**

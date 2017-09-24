@@ -38,6 +38,14 @@
                     <input type="checkbox" name="application-filter[meeting_date][]" value="false">
                     <label>Sans rendez-vous</label>
                 </fieldset>
+                <fieldset>
+                    <label>Dates d'envoi</label><br />
+                    <label>Début</label>
+                    <input type="date" name="application-filter[sending_date][start]" autocomplete="on">
+                    <label>Fin </label>
+                    <input type="date" name="application-filter[sending_date][end]" autocomplete="on"><br />
+                    <p class='small-info'>Laisser vide un champ pour rechercher les candidatures sans mentionner de date de début ou de fin </p>
+                </fieldset>
             </fieldset>
             <fieldset class="col-xs-6">
                 <input type="submit" value="Filtrer" class="btn btn-default"/>

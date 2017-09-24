@@ -15,15 +15,15 @@
  */
 function createArgsForQuery(array $postFilters) :array {
     $args = [];
-    // 
-    // 
+    
+    var_dump($postFilters);
     foreach ($postFilters as $dbColumn => $filterValue) {
 
         if(!empty($filterValue)) {
 
             // if $filterValue is an array (checkboxes & dates)
             // we need to create an entry per array line in $args
-            if (is_array($filterValue)) {
+            if (is_array($filterValue) && !array_key_exists('start', $filterValue) && !array_key_exists('end', $filterValue)) {
                 for ($i=0; $i<count($filterValue); $i++) {
                     $args[] = array(
                         PDO_PARAM_ORDER_CODE            => ':' .$dbColumn .$i
@@ -33,6 +33,25 @@ function createArgsForQuery(array $postFilters) :array {
                     );
                 }
 
+            } elseif (is_array($filterValue)) {
+                /*if (array_key_exists('start', $filterValue)) {
+                    $args[] = array(
+                        PDO_PARAM_ORDER_CODE    => ':' .$dbColumn
+                        , PDO_PARAM_ORDER_VALUE => filter_var($filterValue)
+                        , PDO_PARAM_ORDER_TYPE  => PDO::PARAM_STR
+                        , PDO_PARAM_ORDER_COLUMN_NAME   => $dbColumn 
+                    );
+                }
+                
+                if (array_key_exists('start', $filterValue)) {
+                    $args[] = array(
+                        PDO_PARAM_ORDER_CODE    => ':' .$dbColumn
+                        , PDO_PARAM_ORDER_VALUE => filter_var($filterValue)
+                        , PDO_PARAM_ORDER_TYPE  => PDO::PARAM_STR
+                        , PDO_PARAM_ORDER_COLUMN_NAME   => $dbColumn 
+                    );
+                }*/
+                
             } else {
                 $args[] = array(
                     PDO_PARAM_ORDER_CODE    => ':' .$dbColumn
