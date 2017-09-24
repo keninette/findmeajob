@@ -8,41 +8,56 @@ $pageTitle  = "Historique des candidatures";
 $msg        = "";
 $companies  = [];
 
+$postFilters        =   !is_null(filter_input_array(INPUT_POST)) 
+                        && array_key_exists('application-filter',filter_input_array(INPUT_POST)) 
+                        ? filter_input_array(INPUT_POST)['application-filter']  : null;
+$postApplication    =   !is_null(filter_input_array(INPUT_POST)) 
+                        && array_key_exists('application', filter_input_array(INPUT_POST))       
+                        ? filter_input_array(INPUT_POST)['application']         : null;
+
+
 // If one of the forms has been filled
-if (isset($_GET['target']) && isset($_POST['application'])){
+switch (filter_input(INPUT_GET, 'target')) {
     
-    switch ($_GET['target']) {
-        
-        case "update":
+    // Update application
+    case "update":
+        if (!is_null($postApplication)) {
             $msg .= updateApplication(  (int) $_POST["application"]["id-update"]
-                                        , (String) htmlspecialchars($_POST["application"]["answer_date"])
-                                        , (String) htmlspecialchars($_POST["application"]["meeting_date"])
+                                        , (String) addslashes($_POST["application"]["answer_date"])
+                                        , (String) addslashes($_POST["application"]["meeting_date"])
             );
-            
-            break;
-           
-        case "resend":
-            
-            // Send email
+
+        }
+        
+        break;
+
+    // Re-send email
+    case "resend":
+        if (!is_null($postApplication)) {
             $msg .= sendMotivationEmail(
-                (String) htmlspecialchars($_POST["application"]["email"])
-                , (String) htmlspecialchars($_POST["application"]["salutation"])
-                , (String) htmlspecialchars($_POST["application"]["motivation"])
-            );
-            
-            // If everything went fine, we save today's date in last_sent_date column in application table
-            // And update custom-motivation and salutation in case it has changed
-            $msg .= updateResentApplication(  (int) $_POST["application"]["id-resend"]
-                                , (String) htmlspecialchars($_POST["application"]["salutation"])
-                                , (String) htmlspecialchars($_POST["application"]["motivation"]));
-            
-            break;
-    }
+                        (String) addslashes($_POST["application"]["email"])
+                        , (String) addslashes($_POST["application"]["salutation"])
+                        , (String) addslashes($_POST["application"]["motivation"])
+                    );
+        
+        // If everything went fine, we save today's date in last_sent_date column in application table
+        // And update custom-motivation and salutation in case it has changed
+        $msg .= updateResentApplication(  (int) $_POST["application"]["id-resend"]
+                            , (String) addslashes($_POST["application"]["salutation"])
+                            , (String) addslashes($_POST["application"]["motivation"]));
+        }
+        
+        break;
+
+    // Filters have been selected
+    // Create array of arguments to pass onto pdoPrepareQuery() function 
+    case 'filter':
+        $args = createArgsForQuery($postFilters);
+        break;
 }
 
-
 // Get all applications from database
-$applications = getAllApplicationsHistory();
+$applications = getApplicationsHistory(isset($args) ? $args : null);
 
 // If result is NULL, it means something went wrong
 // As, even if query had returned no results, it would be an empty array

@@ -7,12 +7,12 @@
 function getDashboardData() : array {
     $query = '
         SELECT  COUNT(id)                                                                           AS applicationsNb
-                , SUM(IF(answer_date = \'0000-00-00 00:00:00\', 0, 1))                              AS answeredApplicationsNb
-                , SUM(IF(meeting_date = \'0000-00-00 00:00:00\', 0, 1))                             AS meetingsGrantedNb
+                , SUM(IF(answer_date = \'' .DEFAULT_DB_DATE .'\', 0, 1))                              AS answeredApplicationsNb
+                , SUM(IF(meeting_date = \'' .DEFAULT_DB_DATE .'\', 0, 1))                             AS meetingsGrantedNb
                 , SUM(IF(
-                    (last_sent_date = \'0000-00-00 00:00:00\' OR last_sent_date < (NOW() - INTERVAL 10 DAY))
-                    AND     meeting_date    = \'0000-00-00 00:00:00\' 
-                    AND     answer_date     = \'0000-00-00 00:00:00\' 
+                    (last_sent_date = \'' .DEFAULT_DB_DATE .'\' OR last_sent_date < (NOW() - INTERVAL 10 DAY))
+                    AND     meeting_date    = \'' .DEFAULT_DB_DATE .'\' 
+                    AND     answer_date     = \'' .DEFAULT_DB_DATE .'\' 
                 , 1, 0)) AS oldApplicationsNb
         FROM    applications        
     ';
@@ -34,10 +34,10 @@ function getApplicationsToResendData() {
                 , salutation
                 , customized_motivation
         FROM    applications
-        WHERE   (last_sent_date  = \'0000-00-00 00:00:00\' 
+        WHERE   (last_sent_date  = \'' .DEFAULT_DB_DATE .'\' 
         OR      last_sent_date  < (NOW() - INTERVAL 10 DAY))
-        AND     meeting_date    = \'0000-00-00 00:00:00\' 
-        AND     answer_date     = \'0000-00-00 00:00:00\' ;
+        AND     meeting_date    = \'' .DEFAULT_DB_DATE .'\' 
+        AND     answer_date     = \'' .DEFAULT_DB_DATE .'\' ;
     ';
     
     return pdoQuery($query);

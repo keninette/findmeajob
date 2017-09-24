@@ -1,5 +1,7 @@
 <?php 
 
+require_once 'config/constant.php';
+
 /**
  * Generate a token of random characters
  * @param int $tokenLength : token's length
@@ -37,11 +39,11 @@ function setDateFormat(String $dateString) :String {
     // No need to use "break" command since we return the date inside each case
     switch(true) {
         
-        case ($dateString === "0000-00-00 00:00:00"):
+        case ($dateString === DEFAULT_DB_DATE):
             return "Aucune";
            
         case ($dateString ==="Aucune"):
-            return "0000-00-00 00:00:00";
+            return DEFAULT_DB_DATE;
             
         // Check if the date matches the "YYYY-mm-dd HH:ii:ss" pattern    
         case (preg_match("/^\d{4}[-]{1}\d{2}[-]{1}\d{2} \d{2}[:]{1}\d{2}[:]{1}\d{2}$/", $dateString)):

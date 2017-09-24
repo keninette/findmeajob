@@ -16,9 +16,9 @@ if (isset($_GET['target'])) {
         case 'motivation':
             
             if (isset($_POST['form-motivation'])) {
-                $motivation['contact'] = (string) htmlspecialchars($_POST['form-motivation']["contact"]);
-                $motivation['subject'] = (string) htmlspecialchars($_POST['form-motivation']["subject"]);
-                $motivation['content'] = (string) htmlspecialchars($_POST['form-motivation']["content"]);
+                $motivation['contact'] = (string) addslashes($_POST['form-motivation']["contact"]);
+                $motivation['subject'] = (string) addslashes($_POST['form-motivation']["subject"]);
+                $motivation['content'] = (string) addslashes($_POST['form-motivation']["content"]);
 
                 // if file already exists, replace content
                 // else create and write into file

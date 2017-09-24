@@ -57,8 +57,8 @@ function pdoQuery(String $query) : array {
         // Prepare full error message
         $errorMsg = '<p>
                         Error while executing query : <br />
-                        query : ' .htmlspecialchars($query) .'<br />   
-                        error : ' .htmlspecialchars($e->getMessage()) .'   
+                        query : ' .addslashes($query) .'<br />   
+                        error : ' .addslashes($e->getMessage()) .'   
                     </p>';
         
         // Write error into db
@@ -72,7 +72,12 @@ function pdoQuery(String $query) : array {
 /**
  * Prepares a query and execute it
  * @param String $query : query text with ":argument" inside
- * @param array $arguments : arguments to be written into the query
+ * @param array $arguments : arguments to be written into the query, following this pattern
+ *      array(
+ *          PDO_PARAM_ORDER_CODE            => ":code_param"
+ *          , PDO_PARAM_ORDER_VALUE         => "param_value"
+ *          , PDO_PARAM_ORDER_TYPE          => PDO::PARAM_...
+ *      );
  * @return array : data returned by database
  */
 function pdoPrepareQuery(String $query, array $arguments) :array {
@@ -84,15 +89,12 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         
         // Prepare statement with query and params given in arguments
         $st = $pdo->prepare($query);
-        
         foreach ($arguments as $param) {
             $st->bindParam($param[PDO_PARAM_ORDER_CODE], $param[PDO_PARAM_ORDER_VALUE], $param[PDO_PARAM_ORDER_TYPE]);
         }
         
         // execute prepared statement & return data
-        $result = $st->execute();
-        
-        if ($result) {
+        if ($st->execute()) {
             $return = $st->fetchAll();
             $return["error"] = false;
         } else {
@@ -109,9 +111,9 @@ function pdoPrepareQuery(String $query, array $arguments) :array {
         // Prepare full error message
         $errorMsg = '<p>
                         Error while executing query : <br />
-                        query : ' .htmlspecialchars($query) .'<br />
-                        arguments : ' . htmlspecialchars(implode(' | ', $arguments)) .'<br />
-                        error : ' .htmlspecialchars($e->getMessage()) .'    
+                        query : ' .addslashes($query) .'<br />
+                        arguments : ' . addslashes(implode(' | ', $arguments)) .'<br />
+                        error : ' .addslashes($e->getMessage()) .'    
                     </p>';
         
         // Write error into db

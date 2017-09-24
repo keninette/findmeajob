@@ -5,10 +5,10 @@ $pageTitle = "Envoyer une candidature";
 // If form has been submitted, send email !
 if (isset($_POST['form-application'])) {
         
-    $email      = (string) htmlspecialchars($_POST['form-application']['email']);
-    $salutation = (string) htmlspecialchars($_POST['form-application']['salutation']);
-    $company    = (string) htmlspecialchars($_POST['form-application']['company']);
-    $motivation = (string) htmlspecialchars($_POST['form-application']['motivation']);
+    $email      = (string) addslashes($_POST['form-application']['email']);
+    $salutation = (string) addslashes($_POST['form-application']['salutation']);
+    $company    = (string) addslashes($_POST['form-application']['company']);
+    $motivation = (string) addslashes($_POST['form-application']['motivation']);
     
     // if all required fields all filled
     // send email and insert in database

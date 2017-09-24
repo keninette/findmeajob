@@ -10,7 +10,7 @@ require_once 'model/error.model.php';
 if (isset($_GET['page'])) {
 
     // get the page user asked for
-    $page = (string) htmlspecialchars($_GET['page']);
+    $page = (string) addslashes($_GET['page']);
     
     // if it's empty or if file doesn't exist, just redirect user on main page
     if ($page === '' || !(file_exists('controller/' .$page .'.controller.php') && file_exists('view/' .$page .'.view.php'))) {

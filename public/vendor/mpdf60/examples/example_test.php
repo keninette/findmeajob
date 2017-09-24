@@ -1948,7 +1948,7 @@ $mpdf->Output(); exit;
 
 //$mpdf->Output('test.pdf','D'); exit;
 
-$s = $mpdf->Output('','S');  echo nl2br(htmlspecialchars($s));  exit;
+$s = $mpdf->Output('','S');  echo nl2br(addslashes($s));  exit;
 
 
 exit;

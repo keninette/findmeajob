@@ -111,7 +111,7 @@ if(!function_exists('htmlspecialchars_decode')) {
 }
 
 function PreparePreText($text,$ff='//FF//') {
-	$text = htmlspecialchars($text);
+	$text = addslashes($text);
 	if ($ff) { $text = str_replace($ff,'</pre><formfeed /><pre>',$text); }
 	return ('<pre>'.$text.'</pre>');
 }

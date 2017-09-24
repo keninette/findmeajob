@@ -1,23 +1,12 @@
 <!-- table with all aplications -->
 <section class="row medium-margin-left">
-<?php
-
-// We only display table if there are some applications to display
-if (isset($displayTable) && $displayTable) {
-//     id
-//                    , first_sent_date
-//                    , last_sent_date
-//                    , email
-//                    , salutation
-//                    , company
-//                    , customized_motivation
-?>    
+    
     <!---------------------- DISPLAY FILTERS -------------------->
     <section id="filters-section" class="row">
         <form method="POST" action="index.php?page=history&target=filter">
             <fieldset class="col-xs-6">
                 <label for="application-filter[company]" class="col-md-4 col-xs-12 small-margin-top">Entreprise</label>
-                <input name="application-filter[company]" id="application-filter[company]" type="text" list="company-data" class="datalist col-xs-12 col-md-8 small-margin-top"/>
+                <input name="application-filter[company]" id="application-filter[company]" type="text" list="company-data" value="<?php echo(isset($postFilters['company']) ? $postFilters['company'] : ''); ?>" class="datalist col-xs-12 col-md-8 small-margin-top"/>
                 <datalist id="company-data">
                 <?php
                     foreach ($companies as $thisCompany) {
@@ -28,7 +17,7 @@ if (isset($displayTable) && $displayTable) {
                 ?>
                 </datalist>
                 <label for="application-filter[email]" class="col-md-4 col-xs-12 small-margin-top">Destinataire</label>
-                <input name="application-filter[email]" id="application-filter[email]" type="text" list="recipients-data" class="datalist col-xs-12 col-md-8 small-margin-top"/>
+                <input name="application-filter[email]" id="application-filter[email]" type="text" list="recipients-data"  value="<?php echo(isset($postFilters['email']) ? $postFilters['email'] : ''); ?>"class="datalist col-xs-12 col-md-8 small-margin-top"/>
                 <datalist id="recipients-data">
                 <?php
                     foreach ($recipients as $thisRecipient) {
@@ -38,12 +27,38 @@ if (isset($displayTable) && $displayTable) {
                     }        
                 ?>
                 </datalist>
+                <fieldset>
+                    <label>Statut des candidatures</label> <br />
+                    <input type="checkbox" name="application-filter[answer_date][]" value="true">
+                    <label>Avec réponse</label>
+                    <input type="checkbox" name="application-filter[answer_date][]" value="false">
+                    <label>Sans réponse</label>
+                    <input type="checkbox" name="application-filter[meeting_date][]" value="true">
+                    <label>Avec rendez-vous</label>
+                    <input type="checkbox" name="application-filter[meeting_date][]" value="false">
+                    <label>Sans rendez-vous</label>
+                </fieldset>
             </fieldset>
             <fieldset class="col-xs-6">
                 <input type="submit" value="Filtrer" class="btn btn-default"/>
-                <input type="reset" value="Réinitialier les filtres" class="small-margin-top" />
             </fieldset>   
         </form>
+        <form method="POST" action="index.php?page=history&target=reset-filter">
+            <input type="submit" value="Réinitialier les filtres" class="small-margin-top" />    
+        </form>
+    
+<?php
+// We only display table if there are some applications to display
+if (isset($displayTable) && $displayTable) {
+//     id
+//                    , first_sent_date
+//                    , last_sent_date
+//                    , email
+//                    , salutation
+//                    , company
+//                    , customized_motivation
+?>    
+        
     <!---------------------- DISPLAY TABLE -------------------->
     </section>
     <p class="small-info row">Sélectionnez une candidature pour la mettre à jour ou l'envoyer de nouveau.</p>
